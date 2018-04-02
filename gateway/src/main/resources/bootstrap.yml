@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    config:
+      profile: dev
+      label: trunk
+      uri: http://127.0.0.1:18500
+#      discovery:
+#        enabled: true #开启通过服务来访问Config Server的功能
+#        service_id: service-config

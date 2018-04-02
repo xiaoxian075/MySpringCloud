@@ -1,0 +1,38 @@
+server:
+  port: 18500
+  
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        svn: 
+          #uri: svn://101.132.44.200
+          uri: http://127.0.0.1:8443/svn/scv
+          searchPaths: respo
+          username: chenjx
+          password: chenjx123
+        default-label: trunk
+  profiles:
+    active: subversion    
+#  cloud:
+#    config:
+#      server:
+#        svn: 
+#          uri: svn://192.168.1.159/yzj-config
+#          searchPaths: respo
+#          username: chenjx
+#          password: chenjx123
+#        default-label: trunk
+#  profiles:
+#    active: subversion
+#  cloud:
+#    config:
+#      server:
+#        git: 
+#          uri: https://github.com/xiaoxian075/scv-config.git
+#          searchPaths: respo
+#          username:
+#          password:
+#    label: master

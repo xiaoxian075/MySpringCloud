@@ -1,0 +1,12 @@
+config: 配置服务器
+eureka: eureka服务器
+gateway: 网关服务器
+admin: 后台服务器
+app: APP服务器
+coredb: 后台逻辑服务器
+async: 异步任务处理服务器 用来处理异步任务
+com/sdk: 公共模块（非服务器）
+com/joggle: 接口模块（非服务器），所有跨服务接口统一在此定义
+webadmin: 后台网页端
+scv: springcloud服务群的配置信息（svn)
+deploy: 部署目录

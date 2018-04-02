@@ -1,0 +1,27 @@
+server.port=17538
+eureka.client.serviceUrl.defaultZone: http://admin:123456@172.19.16.103:17501/eureka/
+#eureka.client.serviceUrl.defaultZone: http://admin:123456@101.132.44.200:17501/eureka/
+spring.session.store-type=none
+
+#feign
+feign.hystrix.enabled=true
+feign.hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds=5000
+
+#logger
+logging.file=spring-mweb.log
+
+#自定义变量
+feign.coredb=coredb
+
+encryption.des.password=
+
+file.down.baseurl=http://101.132.44.200:8883/
+file.html5.baseurl=http://101.132.44.200:8884/
+file.html5.jsonurl=http://101.132.44.200:17511/app/common/getRootUrl/
+
+yft.base.url=http://test-api.ipaye.cn
+yft.des.password=12345678
+
+third.sms.cl.url=http://smssh1.253.com/msg/send/json
+third.sms.cl.account=CN3733775
+third.sms.cl.password=bDhdwACgfP04b2

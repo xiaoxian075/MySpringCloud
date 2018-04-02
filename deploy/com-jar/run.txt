@@ -1,0 +1,4 @@
+
+mvn install:install-file -DgroupId=com.scd -DartifactId=sdk -Dversion=0.0.1 -Dpackaging=jar -Dfile=sdk-0.0.1.jar
+
+mvn install:install-file -DgroupId=com.scd -DartifactId=joggle -Dversion=0.0.1 -Dpackaging=jar -Dfile=joggle-0.0.1.jar

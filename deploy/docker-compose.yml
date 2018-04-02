@@ -1,0 +1,35 @@
+eureka:
+  image: eureka
+  net: "backend"
+  ports: 
+    - "17501:17501"
+  volumes:
+    - /home/chenjx/yzj/eureka/logs:/logs
+gateway:
+  image: gateway
+  net: "backend"
+  ports: 
+    - "17511:17511"
+  volumes:
+    - /home/chenjx/yzj/gateway/logs:/logs
+coredb:
+  image: coredb
+  net: "backend"
+  ports:
+    - "17537:17537"
+  volumes:
+    - /home/chenjx/yzj/coredb/logs:/logs
+app:
+  image: app
+  net: "backend"
+  ports: 
+    - "17532:17532"
+  volumes:
+    - /home/chenjx/yzj/app/logs:/logs
+async:
+  image: async
+  net: "backend"
+  ports: 
+    - "17536:17536"             
+  volumes:
+    - /home/chenjx/yzj/async/logs:/logs

@@ -1,0 +1,62 @@
+image: maven:3.5.0-jdk-8
+
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+stages:
+  - deploy-test
+  #- deploy-pre-production
+  #- deploy-production
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  env_test_server: 192.168.1.159
+  #env_pre_production_server: 192.168.1.159
+  #env_production_server: 139.224.209.159
+  env_project_dir: /data/web/vem_service
+
+cache:
+  paths:
+    - .m2/repository/
+
+deploy to test:
+  stage: deploy-test
+  only:
+    - master
+  tags:
+    - maven
+  script:
+    - mvn assembly:assembly -P test
+    - pwd && ls target
+    - scp target/auto.jar tomcat@$env_test_server:$env_project_dir
+    - ssh tomcat@$env_test_server /data/script/ctrl_jar.sh vem_service update
+
+deploy to pre-production:
+  stage: deploy-pre-production
+  only:
+    - master
+  tags:
+    - maven
+  script:
+    - mvn assembly:assembly -P uat
+    - pwd && ls target
+    - scp target/auto.jar tomcat@$env_pre_production_server:$env_project_dir
+    - ssh tomcat@$env_pre_production_server /data/script/ctrl_jar.sh vem_service update
+  when: manual
+    
+deploy to production:
+  stage: deploy-production
+  only:
+    - master
+  tags:
+    - maven
+  script:
+    - mvn assembly:assembly -P production
+    - pwd && ls target
+    - scp target/auto.jar tomcat@$env_production_server:$env_project_dir
+    - ssh tomcat@$env_production_server /data/script/ctrl_jar.sh vem_service update
+  when: manual

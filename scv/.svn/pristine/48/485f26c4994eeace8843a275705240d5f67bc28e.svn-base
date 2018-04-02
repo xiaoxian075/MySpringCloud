@@ -1,0 +1,17 @@
+
+server.port=18511
+eureka.client.serviceUrl.defaultZone: http://admin:123456@127.0.0.1:18501/eureka/
+
+zuul.routes.app.path=/app/**
+zuul.routes.app.strPrefix=true
+zuul.routes.app.service_id=app
+
+zuul.routes.admin.path=/admin/**
+zuul.routes.admin.strPrefix=true
+zuul.routes.admin.service_id=admin
+
+zuul.routes.admin.path=/mweb/**
+zuul.routes.admin.strPrefix=true
+zuul.routes.admin.service_id=mweb
+
+logging.file=spring-gateway.log
