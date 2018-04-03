@@ -11,7 +11,7 @@ import com.scd.joggle.chit.ChitData;
 import com.scd.sdk.util.GsonUtil;
 
 @Component
-@RabbitListener(queues="${spring.rabbitmq.queue.chit}")
+@RabbitListener(queues=/*"queue_chit"*/"${spring.rabbitmq.queue.chit}")
 public class MqChit {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	

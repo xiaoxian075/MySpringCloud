@@ -61,8 +61,8 @@
 			<version>0.0.1</version>
 		</dependency> 	
  		<dependency>
-			<groupId>cn.jpush</groupId>
-			<artifactId>api</artifactId>
+			<groupId>com.third</groupId>
+			<artifactId>jgsdk</artifactId>
 			<version>0.0.1</version>
 		</dependency> 
 		<dependency>

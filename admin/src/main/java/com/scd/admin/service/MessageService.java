@@ -1,6 +1,5 @@
 package com.scd.admin.service;
 
-import cn.jpush.api.PushMgr;
 import cn.jpush.api.push.PushResult;
 import com.scd.admin.constant.Constant;
 import com.scd.admin.feign.FMessage;
@@ -11,6 +10,8 @@ import com.scd.joggle.pojo.po.MessagePo;
 import com.scd.sdk.util.pojo.PageInfo;
 import com.scd.sdk.util.pojo.PushMsg;
 import com.scd.sdk.util.pojo.Return;
+import com.third.jgsdk.JGPush;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,7 +108,7 @@ public class MessageService {
 //            	return Constant.createReturn(ErrorCom.CHANGE_ERROR);
 //            }
             String data = pushMsg.getTitle();
-            PushResult result = PushMgr.getInstance().pushAll(data,id);
+            PushResult result = JGPush.getInstance().pushAll(data,id);
             if (result == null) {
             	return Constant.createReturn(ErrorCom.PUSH_ERROR);
             }

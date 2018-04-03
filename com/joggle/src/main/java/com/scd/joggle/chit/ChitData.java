@@ -3,7 +3,9 @@ package com.scd.joggle.chit;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 短信通用消息
@@ -11,7 +13,9 @@ import lombok.Data;
  *
  */
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class ChitData {
 	

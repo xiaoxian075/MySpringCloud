@@ -9,10 +9,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.scd.admin.mgr.FileMgr;
-
-import cn.jpush.api.PushMgr;
-
-//import cn.jpush.api.PushMgr;
+import com.third.jgsdk.JGPush;
 
 
 
@@ -89,9 +86,7 @@ public class CommonConfig implements CommandLineRunner {
 		if (isProduct == 1) {
 			bProduct = true;
 		}
-		PushMgr.getInstance().init(appKey, masterSecret, bProduct);
-//		PushResult result = PushMgr.getInstance().pushAll("{\"desc\": \"hello ji gong\", \"name\": \"tianfeng\"}");
-//		System.out.println(result);
+		JGPush.getInstance().init(appKey, masterSecret, bProduct);
 	}
 
 }

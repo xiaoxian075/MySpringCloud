@@ -1,26 +1,29 @@
 package com.scd.app.config;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.scd.app.mgr.FileMgr;
+import com.scd.app.mq.MqSend;
 import com.scd.app.third.ThirdYft;
 import com.scd.app.third.ThirdChit;
 import com.scd.app.third.ThirdKd;
 import com.scd.sdk.util.Encrypt;
-
-import cn.jpush.api.PushMgr;
+import com.third.jgsdk.JGPush;
 
 
 @Component
 @Order(value=1)
 public class CommonConfig implements CommandLineRunner {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	
 
 	/**
 	 * 环境变量
@@ -66,6 +69,11 @@ public class CommonConfig implements CommandLineRunner {
     private String appKey;
 	@Value("${third.push.jg.isProduct}")
     private int isProduct;
+	
+	@Value("${spring.rabbitmq.queue.chit}")
+    private String queueChit;
+	@Autowired
+    private AmqpTemplate rabbitTemplate;
 
 
 	@Override
@@ -76,6 +84,13 @@ public class CommonConfig implements CommandLineRunner {
 //			return;
 //		}
 //		RedisUtil.init(template);
+		
+		// 初始化rabbitmq
+		if (rabbitTemplate == null || queueChit == null) {
+			logger.error("init rabbitmq error");
+			return;
+		}
+		MqSend.getInstance().init(rabbitTemplate, queueChit);
 
 		// 初始化文件
 		if (path == null || baseUrl == null) {
@@ -121,15 +136,19 @@ public class CommonConfig implements CommandLineRunner {
 		if (isProduct == 1) {
 			bProduct = true;
 		}
-		PushMgr.getInstance().init(appKey, masterSecret, bProduct);
-//		PushResult result = PushMgr.getInstance().pushAll("{\"desc\": \"hello ji gong\", \"name\": \"tianfeng\"}");
-//		System.out.println(result);
+		JGPush.getInstance().init(appKey, masterSecret, bProduct);
 		
 		rootUrl = baseUrl;
 		html5Url = _html5Url;
 		html5Share = _html5Share;
 		html5Json = _html5Json;
 		html5RegisterUrl = _html5RegisterUrl;
+		
+//		List<String> listPhone = new ArrayList<String>();
+//		listPhone.add("13255984019");
+//		ChitData chitData = new ChitData(1, listPhone, "159874");
+//		String data = GsonUtil.toString(chitData);
+//		MqSend.getInstance().send(data);
 	}
 	
 	private static String rootUrl;

@@ -2,3 +2,6 @@
 mvn install:install-file -DgroupId=com.scd -DartifactId=sdk -Dversion=0.0.1 -Dpackaging=jar -Dfile=sdk-0.0.1.jar
 
 mvn install:install-file -DgroupId=com.scd -DartifactId=joggle -Dversion=0.0.1 -Dpackaging=jar -Dfile=joggle-0.0.1.jar
+
+mvn install:install-file -DgroupId=com.third.jigong -DartifactId=common -Dversion=1.0.8 -Dpackaging=jar -Dfile=jiguang-common-1.0.8.jar
+mvn install:install-file -DgroupId=com.third.jigong -DartifactId=client -Dversion=3.3.3 -Dpackaging=jar -Dfile=jpush-client-3.3.3.jar

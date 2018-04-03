@@ -35,7 +35,6 @@ public class SdkApplication {
 		System.out.println(data);
 		byte[] arrByte = DesUtil.base64Decode(data);
 		writeByFileOutputStream(arrByte);
-		
 	}
 	
 	public static void writeByFileOutputStream(byte[] byteData) {

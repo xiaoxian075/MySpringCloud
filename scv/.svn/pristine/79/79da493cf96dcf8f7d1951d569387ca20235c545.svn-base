@@ -14,8 +14,8 @@ logging.file=spring-app.log
 #自定义变量
 feign.coredb=coredb
 
-encryption.des.password=
-#encryption.des.password=abcdefgh
+#encryption.des.password=
+encryption.des.password=abcdefgh
 
 file.upload.path=D:/install/apache-tomcat-8.5.15/webapps/ROOT/
 file.down.baseurl=http://192.168.1.27:8081/

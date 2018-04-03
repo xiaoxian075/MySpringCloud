@@ -14,8 +14,8 @@ logging.file=spring-app.log
 #自定义变量
 feign.coredb=coredb
 
-encryption.des.password=
-#encryption.des.password=abcdefgh
+#encryption.des.password=
+encryption.des.password=abcdefgh
 
 file.upload.path=D:/install/apache-tomcat-8.5.15/webapps/ROOT/
 file.down.baseurl=http://192.168.1.27:8081/
@@ -42,7 +42,7 @@ third.push.jg.isProduct=0
 #third.push.jg.appkey=3c9ee062a90e0889f8f6e5c9
 
 #rabbitmq
-spring.rabbitmq.host=192.168.253.198
+spring.rabbitmq.host=192.168.1.159
 spring.rabbitmq.port=5672
 spring.rabbitmq.username=admin
 spring.rabbitmq.password=123456
