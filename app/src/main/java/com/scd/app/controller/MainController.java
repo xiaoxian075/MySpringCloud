@@ -55,11 +55,11 @@ public class MainController {
 		
 		System.out.println("session id is " + sessionId);
 		
-		List<String> listPhone = new ArrayList<String>();
+		/*List<String> listPhone = new ArrayList<String>();
 		listPhone.add("13255984019");
 		ChitData chitData = new ChitData(1, listPhone, "159874");
 		String data = GsonUtil.toString(chitData);
-		MqSend.getInstance().send(data);
+		MqSend.getInstance().send(data);*/
 		
 		return sessionId;
 	}
