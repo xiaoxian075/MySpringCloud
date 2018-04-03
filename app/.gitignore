@@ -9,6 +9,7 @@ target/
 .settings
 .springBeans
 .spring-app.log
+spring-app.log
 
 ### IntelliJ IDEA ###
 .idea

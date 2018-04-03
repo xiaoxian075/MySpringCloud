@@ -9,6 +9,7 @@ target/
 .settings
 .springBeans
 .spring-async.log
+spring-async.log
 
 ### IntelliJ IDEA ###
 .idea
