@@ -1,16 +1,15 @@
 package com.scd.admin.service;
 
-import cn.jpush.api.push.PushResult;
 import com.scd.admin.constant.Constant;
 import com.scd.admin.feign.FMessage;
 import com.scd.admin.pojo.util.MessageUtil;
 import com.scd.admin.pojo.vo.MessageVo;
 import com.scd.joggle.constant.ErrorCom;
+import com.scd.joggle.mq.MyMqSend;
 import com.scd.joggle.pojo.po.MessagePo;
 import com.scd.sdk.util.pojo.PageInfo;
 import com.scd.sdk.util.pojo.PushMsg;
 import com.scd.sdk.util.pojo.Return;
-import com.third.jgsdk.JGPush;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,13 +102,9 @@ public class MessageService {
                 return Constant.createReturn(ret.getCode(), ret.getDesc());
             }
             PushMsg pushMsg = ret.getData();
-//            String data = GsonUtil.toString(pushMsg);
-//            if (data == null) {
-//            	return Constant.createReturn(ErrorCom.CHANGE_ERROR);
-//            }
-            String data = pushMsg.getTitle();
-            PushResult result = JGPush.getInstance().pushAll(data,id);
-            if (result == null) {
+            String title = pushMsg.getTitle();
+            
+            if (!MyMqSend.getInstance().sendPush(id, title)) {
             	return Constant.createReturn(ErrorCom.PUSH_ERROR);
             }
         } catch (Exception e) {

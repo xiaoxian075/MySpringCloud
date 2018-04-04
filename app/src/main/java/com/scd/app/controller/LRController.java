@@ -6,8 +6,8 @@ import com.scd.app.mgr.SessionMgr;
 import com.scd.app.pojo.bo.RegisterCodeBo;
 import com.scd.app.pojo.bo.ResetPwdBo;
 import com.scd.app.service.LRService;
-import com.scd.app.third.ThirdChit;
 import com.scd.joggle.constant.ErrorCom;
+import com.scd.joggle.mq.MyMqSend;
 import com.scd.joggle.pojo.po.AccountLoginPo;
 import com.scd.sdk.util.GeneralProduceUtil;
 import com.scd.sdk.util.pojo.Return;
@@ -90,14 +90,9 @@ public class LRController {
 		
 		
 		// 发送短信（验证码）至手机号码
-		if (!ThirdChit.getInstance().sendRegister(phone, code)) {
+		if (!MyMqSend.getInstance().sendChitRegister(phone, code)) {
 			return Constant.pack(ErrorCom.SEND_CODE_ERROR);
 		}
-//		if (!Rabbitmq.getInstance().sendChitRegister(phone, code)) {
-//			return Constant.pack(ErrorCom.SEND_CODE_ERROR);
-//		}
-		
-		
 		
 		// 将验证码存到session中，供下一步验证使用
 		if (registerCodeBo != null) {
@@ -249,12 +244,9 @@ public class LRController {
 		}
 		
 		// 发送短信（验证码）至手机号码
-		if (!ThirdChit.getInstance().sendResetPwd(phone, code)) {
+		if (!MyMqSend.getInstance().sendChitResetPwd(phone, code)) {
 			return Constant.pack(ErrorCom.SEND_CODE_ERROR);
 		}
-//		if (!Rabbitmq.getInstance().sendChitGetBackPassword(phone, code)) {
-//			return Constant.pack(ErrorCom.SEND_CODE_ERROR);
-//		}
 		
 		
 		// 将验证码存到session中，供下一步验证使用

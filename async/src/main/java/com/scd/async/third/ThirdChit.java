@@ -5,6 +5,7 @@ import java.util.List;
 import com.scd.async.third.sms.chuanglan.ChuangLanSmsUtil;
 
 
+
 public class ThirdChit {
 	//private static Logger logger = LoggerFactory.getLogger(ThirdChit.class);
 
@@ -47,6 +48,21 @@ public class ThirdChit {
      * @param phoneList
      * @param code
      */
+    public boolean sendRegister(String phone, String code) {
+    	String msg = assembleModel(SMS_MODEL_REGISTER, code);
+        //String phone = String.join(",", phoneList);
+        if (msg == null || phone == null) {
+        	return false;
+        }
+        return ChuangLanSmsUtil.sendMsg(clUrl, clAccount, clPassword, msg, phone);
+    }
+    
+    /**
+     * 发送注册验证码
+     *
+     * @param phoneList
+     * @param code
+     */
     public boolean sendRegister(List<String> phoneList, String code) {
     	String msg = assembleModel(SMS_MODEL_REGISTER, code);
         String phone = String.join(",", phoneList);
@@ -66,6 +82,22 @@ public class ThirdChit {
     public boolean sendResetPwd(List<String> phoneList, String code) {
     	String msg = assembleModel(SMS_MODEL_RESETPWD, code);
         String phone = String.join(",", phoneList);
+        if (msg == null || phone == null) {
+        	return false;
+        }
+        return ChuangLanSmsUtil.sendMsg(clUrl, clAccount, clPassword, msg, phone);
+    }
+    
+    /**
+     * 发送找回密码验证码
+     *
+     * @param phoneList
+     * @param code
+     * @return
+     */
+    public boolean sendResetPwd(String phone, String code) {
+    	String msg = assembleModel(SMS_MODEL_RESETPWD, code);
+        //String phone = String.join(",", phoneList);
         if (msg == null || phone == null) {
         	return false;
         }

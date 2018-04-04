@@ -1,7 +1,7 @@
 package com.scd.async.controller;
 
 import com.scd.async.mgr.Rabbitmq;
-import com.scd.joggle.chit.ChitData;
+import com.scd.joggle.mq.ChitData;
 import com.scd.sdk.util.GsonUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -1,0 +1,26 @@
+server.port=18536
+eureka.client.serviceUrl.defaultZone: http://admin:123456@127.0.0.1:18501/eureka/
+
+spring.session.store-type=none
+
+#日志
+logging.file=spring-async.log
+
+#rabbitmq
+spring.rabbitmq.host=192.168.253.198
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=admin
+spring.rabbitmq.password=123456
+spring.rabbitmq.queue.chit=queue_chit
+
+third.express.kd100.url=http://api.kuaidi100.com/api
+third.express.kd100.key=6ee3eb2b4945380c
+
+third.sms.cl.url=http://smssh1.253.com/msg/send/json
+third.sms.cl.account=CN3733775
+third.sms.cl.password=bDhdwACgfP04b2
+
+third.push.jg.mastersecret=7bc02970b5cdab0c00db8bea
+third.push.jg.appkey=46873c455473f3f288e5d526
+third.push.jg.isProduct=0
+

@@ -10,12 +10,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.scd.app.mgr.FileMgr;
-import com.scd.app.mq.MqSend;
 import com.scd.app.third.ThirdYft;
-import com.scd.app.third.ThirdChit;
+import com.scd.joggle.mq.MyMqSend;
 import com.scd.app.third.ThirdKd;
 import com.scd.sdk.util.Encrypt;
-import com.third.jgsdk.JGPush;
 
 
 @Component
@@ -56,22 +54,13 @@ public class CommonConfig implements CommandLineRunner {
 	@Value("${third.express.kd100.key}")
     private String kd100Key;
 
-	@Value("${third.sms.cl.url}")
-    private String clUrl;
-	@Value("${third.sms.cl.account}")
-    private String clAccount;
-	@Value("${third.sms.cl.password}")
-    private String clPassword;
 
-	@Value("${third.push.jg.mastersecret}")
-    private String masterSecret;
-	@Value("${third.push.jg.appkey}")
-    private String appKey;
-	@Value("${third.push.jg.isProduct}")
-    private int isProduct;
+
 	
 	@Value("${spring.rabbitmq.queue.chit}")
     private String queueChit;
+	@Value("${spring.rabbitmq.queue.push}")
+    private String queuePush;
 	@Autowired
     private AmqpTemplate rabbitTemplate;
 
@@ -86,11 +75,11 @@ public class CommonConfig implements CommandLineRunner {
 //		RedisUtil.init(template);
 		
 		// 初始化rabbitmq
-		if (rabbitTemplate == null || queueChit == null) {
+		if (rabbitTemplate == null || queueChit == null || queuePush == null) {
 			logger.error("init rabbitmq error");
 			return;
 		}
-		MqSend.getInstance().init(rabbitTemplate, queueChit);
+		MyMqSend.getInstance().init(rabbitTemplate, queueChit, queuePush);
 
 		// 初始化文件
 		if (path == null || baseUrl == null) {
@@ -120,23 +109,7 @@ public class CommonConfig implements CommandLineRunner {
 		}
 		ThirdKd.getInstance().init(kd100Url, kd100Key);
 
-		// 初始化创蓝短信
-		if (clUrl == null || clAccount == null || clPassword == null) {
-			logger.error("init change lang error");
-			return;
-		}
-		ThirdChit.getInstance().init(clUrl, clAccount, clPassword);
 
-		// 初始化极光
-		if (appKey == null || masterSecret == null) {
-			logger.error("init ji gong error");
-			return;
-		}
-		boolean bProduct = false;
-		if (isProduct == 1) {
-			bProduct = true;
-		}
-		JGPush.getInstance().init(appKey, masterSecret, bProduct);
 		
 		rootUrl = baseUrl;
 		html5Url = _html5Url;

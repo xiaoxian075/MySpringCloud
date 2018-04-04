@@ -3,13 +3,15 @@ package com.scd.admin.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.scd.admin.mgr.FileMgr;
-import com.third.jgsdk.JGPush;
+import com.scd.joggle.mq.MyMqSend;
 
 
 
@@ -21,26 +23,20 @@ public class CommonConfig implements CommandLineRunner {
 //	@Autowired
 //    private RedisTemplate<String, String> template;
 	
-//	@Autowired
-//    private AmqpTemplate rabbitTemplate;
-	
 	/**
 	 * 环境变量
 	 */
-//    @Value("${spring.rabbitmq.queue.chit}")
-//    private String queueChit;
-    
     @Value("${file.upload.path}")
     private String fileUploadPath;
     @Value("${file.upload.baseurl}")
     private String fileUploadBaseurl;
-    
-	@Value("${third.push.jg.mastersecret}")
-    private String masterSecret;
-	@Value("${third.push.jg.appkey}")
-    private String appKey;
-	@Value("${third.push.jg.isProduct}")
-    private int isProduct;
+	
+	@Value("${spring.rabbitmq.queue.chit}")
+    private String queueChit;
+	@Value("${spring.rabbitmq.queue.push}")
+    private String queuePush;
+	@Autowired
+    private AmqpTemplate rabbitTemplate;
 
 	@Override
 	public void run(String... arg0) throws Exception {
@@ -66,7 +62,12 @@ public class CommonConfig implements CommandLineRunner {
 //			return;
 //		}
 //		Rabbitmq.getInstance().init(rabbitTemplate, queueChit);
-		
+		// 初始化rabbitmq
+		if (rabbitTemplate == null || queueChit == null || queuePush == null) {
+			logger.error("init rabbitmq error");
+			return;
+		}
+		MyMqSend.getInstance().init(rabbitTemplate, queueChit, queuePush);
 		
 		
 		
@@ -77,16 +78,6 @@ public class CommonConfig implements CommandLineRunner {
 		}
 		FileMgr.getInstance().init(fileUploadPath, fileUploadBaseurl);
 		
-		// 初始化极光
-		if (appKey == null || masterSecret == null) {
-			logger.error("init ji gong error");
-			return;
-		}
-		boolean bProduct = false;
-		if (isProduct == 1) {
-			bProduct = true;
-		}
-		JGPush.getInstance().init(appKey, masterSecret, bProduct);
 	}
 
 }

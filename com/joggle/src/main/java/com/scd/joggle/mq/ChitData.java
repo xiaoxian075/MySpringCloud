@@ -1,4 +1,4 @@
-package com.scd.joggle.chit;
+package com.scd.joggle.mq;
 
 import java.util.List;
 

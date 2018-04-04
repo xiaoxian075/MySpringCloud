@@ -42,7 +42,7 @@ public class JGPush {
 	private String appKey;
 	private boolean isProduct;
 	
-    public PushResult pushAll(String data,long id) {
+    public PushResult pushAll(long id, String data) {
         PushResult result = null;
         try {
             JPushClient jpushClient = new JPushClient(masterSecret, appKey, null, ClientConfig.getInstance());
@@ -72,7 +72,7 @@ public class JGPush {
         	logger.error("JIGONG PushMgr Connection error, should retry later", e);
             return null;
         } catch (APIRequestException e) {
-        	logger.info("JIGONG PushMgr HTTP Status: " + e.getStatus() + ", Code:" + e.getErrorCode() + ", Message:" + e.getErrorMessage());
+        	logger.error("JIGONG PushMgr HTTP Status: " + e.getStatus() + ", Code:" + e.getErrorCode() + ", Message:" + e.getErrorMessage());
             return null;
         }
         return result;

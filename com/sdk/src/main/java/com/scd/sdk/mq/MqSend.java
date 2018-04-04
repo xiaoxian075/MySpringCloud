@@ -1,11 +1,10 @@
-package com.scd.app.mq;
+package com.scd.sdk.mq;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-//@RabbitListener(queues="${spring.rabbitmq.queue}")
 public class MqSend {
 	private MqSend() {}
 	private static class MqSendFactory {
@@ -17,16 +16,18 @@ public class MqSend {
 	
 	@Autowired
     private AmqpTemplate rabbitTemplate;
-	private String mqChit;
 	
-	public void init(AmqpTemplate rabbitTemplate, String mqChit) {
+	public void init(AmqpTemplate rabbitTemplate) {
 		this.rabbitTemplate = rabbitTemplate;
-		this.mqChit = mqChit;
 	}
 	
-	public boolean send(String data) {
+	public boolean send(String queue, String data) {
+		if (rabbitTemplate == null || queue == null || queue.length() == 0 || data == null || data.length() == 0) {
+			return false;
+		}
+		
 		try {
-			rabbitTemplate.convertAndSend(mqChit, data);
+			rabbitTemplate.convertAndSend(queue, data);
 		} catch (Exception e) {
 			return false;
 		}

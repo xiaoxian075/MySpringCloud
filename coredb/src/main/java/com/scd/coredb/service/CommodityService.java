@@ -68,6 +68,7 @@ public class CommodityService {
     			if (shopId > 0) {
     				predicates.add(criteriaBuilder.equal(root.get(TCommodity.SHOP_ID).as(Long.class), shopId));
     			}
+    			
     			if (type > 0) {
     				predicates.add(criteriaBuilder.equal(root.get(TCommodity.SHOP_PRODUCT_TYPE).as(Integer.class), type));
     			}

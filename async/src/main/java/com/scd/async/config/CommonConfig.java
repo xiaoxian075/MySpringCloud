@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.scd.async.mgr.Rabbitmq;
 import com.scd.async.third.ThirdChit;
 import com.scd.async.third.ThirdKd;
+import com.third.jgsdk.JGPush;
 
 
 @Component
@@ -37,6 +38,13 @@ public class CommonConfig implements CommandLineRunner {
     private String clAccount;
 	@Value("${third.sms.cl.password}")
     private String clPassword;
+	
+	@Value("${third.push.jg.mastersecret}")
+    private String masterSecret;
+	@Value("${third.push.jg.appkey}")
+    private String appKey;
+	@Value("${third.push.jg.isProduct}")
+    private int isProduct;
 
 	@Override
 	public void run(String... arg0) throws Exception {
@@ -61,6 +69,17 @@ public class CommonConfig implements CommandLineRunner {
 			return;
 		}
 		ThirdChit.getInstance().init(clUrl, clAccount, clPassword);
+		
+		// 初始化极光
+		if (appKey == null || masterSecret == null) {
+			logger.error("init ji gong error");
+			return;
+		}
+		boolean bProduct = false;
+		if (isProduct == 1) {
+			bProduct = true;
+		}
+		JGPush.getInstance().init(masterSecret, appKey, bProduct);
 	}
 
 }

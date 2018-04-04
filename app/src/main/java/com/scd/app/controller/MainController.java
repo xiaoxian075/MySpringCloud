@@ -1,8 +1,5 @@
 package com.scd.app.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,15 +13,13 @@ import com.scd.app.constant.Constant;
 import com.scd.app.controller.accept.GetPicsAcceptMsg;
 import com.scd.app.controller.accept.LoginAcceptMsg;
 import com.scd.app.mgr.SessionMgr;
-import com.scd.app.mq.MqSend;
 import com.scd.app.pojo.util.AccountUtil;
 import com.scd.app.pojo.vo.AccountVo;
 import com.scd.app.pojo.vo.CarouselVo;
 import com.scd.app.service.MainService;
-import com.scd.joggle.chit.ChitData;
 import com.scd.joggle.constant.ErrorCom;
+import com.scd.joggle.mq.MyMqSend;
 import com.scd.joggle.pojo.bo.AccountBo;
-import com.scd.sdk.util.GsonUtil;
 import com.scd.sdk.util.RandomUtil;
 import com.scd.sdk.util.pojo.Return;
 import com.scd.sdk.util.pojo.Session;
@@ -52,15 +47,8 @@ public class MainController {
 		}
 		Session session = new Session(clientIp, sessionId, 30000);
 		SessionMgr.getInstance().add(session);
-		
-		System.out.println("session id is " + sessionId);
-		
-		/*List<String> listPhone = new ArrayList<String>();
-		listPhone.add("13255984019");
-		ChitData chitData = new ChitData(1, listPhone, "159874");
-		String data = GsonUtil.toString(chitData);
-		MqSend.getInstance().send(data);*/
-		
+
+		MyMqSend.getInstance().sendChitRegister("13255984019", "988789");
 		return sessionId;
 	}
 	

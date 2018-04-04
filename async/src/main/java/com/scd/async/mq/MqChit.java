@@ -1,4 +1,4 @@
-package com.scd.async.chit;
+package com.scd.async.mq;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,11 +7,11 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import com.scd.async.third.ThirdChit;
-import com.scd.joggle.chit.ChitData;
+import com.scd.joggle.mq.ChitData;
 import com.scd.sdk.util.GsonUtil;
 
 @Component
-@RabbitListener(queues=/*"queue_chit"*/"${spring.rabbitmq.queue.chit}")
+@RabbitListener(queues="${spring.rabbitmq.queue.chit}")
 public class MqChit {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	

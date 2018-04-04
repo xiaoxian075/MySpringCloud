@@ -108,17 +108,4 @@ public class ChuangLanSmsUtil {
         }
         return null;
     }
-
-//    public static String listToStr(List<String> sList, String symbol) {
-//        String str = "";
-//        if (sList != null && sList.size() > 0) {
-//            for (int i = 0; i < sList.size(); i++) {
-//                str += sList.get(i) + symbol;
-//            }
-//            if (str.endsWith(symbol)) {
-//                str = str.substring(0, str.length() - 1);
-//            }
-//        }
-//        return str;
-//    }
 }
